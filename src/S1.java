@@ -27,8 +27,16 @@ public class S1 extends JPanel implements Runnable {
 
     @Override
     public void run() {
+        while(gamethread !=null){
 
+            update();
+            repaint();
+        }
+    }
+    public void update(){
 
-
+    }
+    public void paintComponent(Graphics g){
+        super.paintComponent(g);
     }
 }
