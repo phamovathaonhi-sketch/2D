@@ -10,7 +10,6 @@ public class TitleScreen extends JPanel{
 
     public TitleScreen() {
        jframe = new JFrame("My first 2D game");
-       this.s = new S1();
        init();
     }
     public void init(){
@@ -40,6 +39,7 @@ public class TitleScreen extends JPanel{
         button.setFocusPainted(false);
         button.setOpaque(false);
         button.addActionListener(e ->{
+            S1 s = new S1();   // create it HERE (on click)
             s.startGamethread();
             jframe.dispose();
 
