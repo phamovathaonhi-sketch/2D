@@ -1,3 +1,7 @@
+package main;
+
+import gameChar.Player;
+
 import javax.swing.*;
 import java.awt.*;
 
@@ -7,10 +11,11 @@ public class S1 extends JPanel implements Runnable {
     Thread gamethread;
     private int origi =10;
     private int scale= 5;
-    private int tileSize = origi*scale;
+    public int tileSize = origi*scale;
     //FPS
     int FPS = 60;
     Keyhandler K = new Keyhandler();
+    Player p = new Player(this,K);
 
     // player default position
     int playerX= 100;
@@ -60,22 +65,13 @@ public class S1 extends JPanel implements Runnable {
         }
     }
     public void update(){
-        if (K.upressed == true){
-            playerY = playerY-playerSpeed;
-        } else if (K.downpressed == true) {
-            playerY = playerY+playerSpeed;
-        } else if (K.rightpressed == true) {
-            playerX = playerX + playerSpeed;
-        } else if (K.leftpressed == true) {
-            playerX = playerX - playerSpeed;
-        }
+      p.update();
 
     }
     public void paintComponent(Graphics g){
         super.paintComponent(g);
         Graphics2D g2 = (Graphics2D) g;
-        g2.setColor(Color.black);
-        g2.fillRect(playerX,playerY,tileSize,tileSize);
+        p.paint(g2);
         g2.dispose();
 
     }
