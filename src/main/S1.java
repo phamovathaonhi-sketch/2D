@@ -2,28 +2,26 @@ package main;
 
 import gameChar.Player;
 
+import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
+import java.io.IOException;
+import java.io.InputStream;
 
 public class S1 extends JPanel implements Runnable {
     private JFrame jframe;
     private JScrollPane scrollPane;
     Thread gamethread;
     private int origi =10;
-    private int scale= 5;
+    private int scale= 8;
     public int tileSize = origi*scale;
     //FPS
     int FPS = 60;
     Keyhandler K = new Keyhandler();
     Player p = new Player(this,K);
 
-    // player default position
-    int playerX= 100;
-    int playerY = 100;
-    int playerSpeed = 4;
-
     public S1(){
-        jframe = new JFrame("Menu");
+        jframe = new JFrame("S1");
         init();
         this.addKeyListener(K);
         this.setFocusable(true);
@@ -32,6 +30,18 @@ public class S1 extends JPanel implements Runnable {
         jframe.setSize(800, 600);
         jframe.setLocationRelativeTo(null);
         jframe.setResizable(false);
+        try {
+            String path = "/Images/a34c95dc15ad78b97bb6c5fd681f8579.jpg";
+            InputStream is = getClass().getResourceAsStream(path);
+
+            if (is != null) {
+                jframe.setIconImage(ImageIO.read(is));
+            } else {
+                System.out.println("Error: Could not find image at " + path);
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         jframe.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         jframe.add(this);
         jframe.setVisible(true);

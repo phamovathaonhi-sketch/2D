@@ -6,7 +6,7 @@ import java.awt.*;
 import java.io.IOException;
 import java.io.InputStream;
 
-public class TitleScreen extends JPanel{
+public class TitleScreen extends JPanel implements Runnable{
     private JFrame jframe;
     S1 s;
 
@@ -62,5 +62,9 @@ public class TitleScreen extends JPanel{
     }
 
 
+    @Override
+    public void run() {
+
+    }
 }
 

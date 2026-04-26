@@ -39,19 +39,32 @@ public class Player extends Entity{
         }
     }
     public void update(){
-        if (keyhandler.upressed == true){
-            direction ="up";
-             y-=speed;
-        } else if (keyhandler.downpressed == true) {
-            direction ="down";
-            y+=speed;
-        } else if (keyhandler.rightpressed == true) {
-            direction ="right";
-            x += speed;
-        } else if (keyhandler.leftpressed == true) {
-            direction ="left";
-            x -= speed;
+        if (keyhandler.downpressed == true || keyhandler.upressed == true || keyhandler.leftpressed == true || keyhandler.rightpressed == true){
+            if (keyhandler.upressed == true){
+                direction ="up";
+                y-=speed;
+            } else if (keyhandler.downpressed == true) {
+                direction ="down";
+                y+=speed;
+            } else if (keyhandler.rightpressed == true) {
+                direction ="right";
+                x += speed;
+            } else if (keyhandler.leftpressed == true) {
+                direction ="left";
+                x -= speed;
+            }
+            spriteCounter++;
+            if (spriteCounter > 12){
+                if (spritenum ==1){
+                    spritenum =2;
+                } else if (spritenum ==2) {
+                    spritenum =1;
+
+                }
+                spriteCounter =0;
+            }
         }
+
 
     }
     public void paint(Graphics2D g2){
@@ -61,16 +74,35 @@ public class Player extends Entity{
 
         switch (direction){
             case "up":
-                img = up1;
+                if (spritenum == 1){
+                    img = up1;
+                }
+                if (spritenum == 2)
+                img = up2;
                 break;
             case "down":
-                img = down1;
+                if (spritenum ==1) {
+                    img = down1;
+                }
+                if (spritenum == 2){
+                    img = down2;
+                }
                 break;
             case "left":
-                img = left1;
+                if (spritenum == 1){
+                    img = left1;
+                }
+                if (spritenum ==2){
+                    img = left2;
+                }
                 break;
             case "right":
-                img = right1;
+                if (spritenum ==1){
+                    img=right1;
+                }
+                if (spritenum == 2){
+                    img = right2;
+                }
                 break;
 
         }
