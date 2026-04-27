@@ -68,8 +68,6 @@ public class Player extends Entity{
 
     }
     public void paint(Graphics2D g2){
-      //  g2.setColor(Color.black);
-       // g2.fillRect(x,y,gamePanel.tileSize,gamePanel.tileSize);
         BufferedImage img= null;
 
         switch (direction){

@@ -1,5 +1,6 @@
 package main;
 
+import Tile.TileManager;
 import gameChar.Player;
 
 import javax.imageio.ImageIO;
@@ -12,11 +13,12 @@ public class S1 extends JPanel implements Runnable {
     private JFrame jframe;
     private JScrollPane scrollPane;
     Thread gamethread;
-    private int origi =10;
-    private int scale= 8;
+    private int origi = 10;
+    private int scale= 7;
     public int tileSize = origi*scale;
     //FPS
     int FPS = 60;
+    TileManager tileManager = new TileManager(this);
     Keyhandler K = new Keyhandler();
     Player p = new Player(this,K);
 
@@ -77,10 +79,13 @@ public class S1 extends JPanel implements Runnable {
     public void update(){
       p.update();
 
+
     }
+
     public void paintComponent(Graphics g){
         super.paintComponent(g);
         Graphics2D g2 = (Graphics2D) g;
+        tileManager.draw(g2);
         p.paint(g2);
         g2.dispose();
 
