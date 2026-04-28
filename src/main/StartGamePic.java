@@ -9,7 +9,6 @@ public class StartGamePic {
 
     private BufferedImage startImage1;
     private BufferedImage startImage2;
-    TitleScreen gp;
     private int startCount = 0;
     private final int switchRate = 60;
 
@@ -41,4 +40,5 @@ public class StartGamePic {
             g2.drawImage(startImage2, 0, 0, 800, 600, null);
         }
     }
+
 }

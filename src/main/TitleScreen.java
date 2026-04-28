@@ -18,7 +18,7 @@ public class TitleScreen extends JPanel implements Runnable{
        init();
     }
     public void init(){
-        jframe.setSize(800,600);
+        jframe.setSize(size1,size2);
         jframe.setVisible(true);
         jframe.setLocationRelativeTo(null);
         jframe.setResizable(false);
@@ -44,8 +44,7 @@ public class TitleScreen extends JPanel implements Runnable{
         button.setFocusPainted(false);
         button.setOpaque(false);
         button.addActionListener(e ->{
-            S1 s = new S1();   // create it HERE (on click)
-            s.startGamethread();
+            Selections s = new Selections();
             jframe.dispose();
 
         });
