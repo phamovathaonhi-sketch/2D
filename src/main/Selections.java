@@ -36,15 +36,21 @@ public class Selections extends JPanel {
             e.printStackTrace();
         }
         JButton bu = new JButton();
-        bu.setBounds(250,390,100,100);
+        bu.setBounds(180,280,180,180);
         URL imgURL = getClass().getResource("/Images/cake.png");
-        if (imgURL != null) {
 
-            ImageIcon buttonIcon = new ImageIcon(imgURL);
+        if (imgURL != null) {
+            ImageIcon tempIcon = new ImageIcon(imgURL);
+
+
+            Image scaledImage = tempIcon.getImage().getScaledInstance(180, 180, Image.SCALE_SMOOTH);
+
+
+            ImageIcon buttonIcon = new ImageIcon(scaledImage);
 
             bu.setIcon(buttonIcon);
         }
-        bu.setBorderPainted(true);
+        bu.setBorderPainted(false);
         bu.setContentAreaFilled(false);
         bu.setFocusPainted(false);
         bu.setOpaque(false);
@@ -53,7 +59,31 @@ public class Selections extends JPanel {
             s.startGamethread();
             jframe.dispose();
         });
+        JButton bu1 = new JButton();
+        bu.setBounds(180,280,180,180);
+        URL imgURL1 = getClass().getResource("/Images/cake.png");
+
+        if (imgURL1 != null) {
+            ImageIcon tempIcon = new ImageIcon(imgURL1);
+
+
+            Image scaledImage = tempIcon.getImage().getScaledInstance(180, 180, Image.SCALE_SMOOTH);
+
+
+            ImageIcon buttonIcon = new ImageIcon(scaledImage);
+
+            bu1.setIcon(buttonIcon);
+        }
+        bu1.setBorderPainted(false);
+        bu1.setContentAreaFilled(false);
+        bu1.setFocusPainted(false);
+        bu1.setOpaque(false);
+        bu1.addActionListener(e ->{
+            S2 s2 = new S2();
+            jframe.dispose();
+        });
         jframe.add(bu);
+        jframe.add(bu1);
 
     }
 }
