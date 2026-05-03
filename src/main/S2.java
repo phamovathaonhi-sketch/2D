@@ -9,9 +9,14 @@ public class S2 extends JPanel {
     JFrame jframe;
 
     public S2(){
+        jframe = new JFrame("S2");
+        this.setFocusable(true);
+        intit();
+    }
+    public void intit(){
         jframe.setSize(800,600);
         try {
-            String path = "/Images/a34c95dc15ad78b97bb6c5fd681f8579.jpg";
+            String path = "/images/a34c95dc15ad78b97bb6c5fd681f8579.jpg";
             InputStream is = getClass().getResourceAsStream(path);
 
             if (is != null) {
@@ -26,5 +31,6 @@ public class S2 extends JPanel {
         jframe.add(this);
         jframe.setVisible(true);
         this.setDoubleBuffered(true);
+        jframe.setLocationRelativeTo(null);
     }
 }

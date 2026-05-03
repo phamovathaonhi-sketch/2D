@@ -7,83 +7,125 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.net.URL;
 
-public class Selections extends JPanel {
+public class Selections extends JPanel implements Runnable {
+
     private JFrame jframe;
-    Thread gameThread;
+    private Thread gameThread;
+    private boolean running = true;
 
+    public static final int WIDTH = 800;
+    public static final int HEIGHT = 600;
 
-    public Selections(){
+    public Selections() {
         jframe = new JFrame("Selections");
         init();
     }
-    public void init(){
-        jframe.setSize(800,600);
-        jframe.setVisible(true);
+
+    private void init() {
+
+        jframe.setSize(WIDTH, HEIGHT);
         jframe.setLocationRelativeTo(null);
         jframe.setResizable(false);
         jframe.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        jframe.setLayout(null);
-        try {
-            String path = "/Images/a34c95dc15ad78b97bb6c5fd681f8579.jpg";
-            InputStream is = getClass().getResourceAsStream(path);
 
+
+        this.setLayout(null);
+        this.setBounds(0, 0, WIDTH, HEIGHT);
+        jframe.add(this);
+
+        try {
+            InputStream is = getClass().getResourceAsStream(
+                    "/Images/a34c95dc15ad78b97bb6c5fd681f8579.jpg");
             if (is != null) {
                 jframe.setIconImage(ImageIO.read(is));
-            } else {
-                System.out.println("Error: Could not find image at " + path);
             }
         } catch (IOException e) {
             e.printStackTrace();
         }
-        JButton bu = new JButton();
-        bu.setBounds(180,280,180,180);
-        URL imgURL = getClass().getResource("/Images/cake.png");
 
+        JButton bu1 = createCakeButton(170, 280);
+        bu1.addActionListener(e -> {
+            S1 s1 = new S1();
+            s1.startGamethread();
+            running = false;
+            jframe.dispose();
+        });
+
+        JButton bu2 = createSashimiButton(460, 350);
+        bu2.addActionListener(e -> {
+            new S2();
+            running = false;
+            jframe.dispose();
+        });
+
+        this.add(bu1);
+        this.add(bu2);
+
+        startGameThread();
+        jframe.setVisible(true);
+    }
+
+    private JButton createCakeButton(int x, int y) {
+        JButton button = new JButton();
+        button.setBounds(x, y, 180, 180);
+        button.setBorderPainted(false);
+        button.setContentAreaFilled(false);
+        button.setFocusPainted(false);
+        button.setOpaque(false);
+
+        URL imgURL = getClass().getResource("/images/cake.png");
         if (imgURL != null) {
-            ImageIcon tempIcon = new ImageIcon(imgURL);
-
-
-            Image scaledImage = tempIcon.getImage().getScaledInstance(180, 180, Image.SCALE_SMOOTH);
-
-
-            ImageIcon buttonIcon = new ImageIcon(scaledImage);
-
-            bu.setIcon(buttonIcon);
+            ImageIcon temp = new ImageIcon(imgURL);
+            Image scaled = temp.getImage().getScaledInstance(180, 180, Image.SCALE_SMOOTH);
+            button.setIcon(new ImageIcon(scaled));
         }
-        bu.setBorderPainted(false);
-        bu.setContentAreaFilled(false);
-        bu.setFocusPainted(false);
-        bu.setOpaque(false);
-        bu.addActionListener(e ->{
-            S1 s = new S1();
-            s.startGamethread();
-            jframe.dispose();
-        });
-        JButton bu1 = new JButton();
-        bu.setBounds(180,280,180,180);
-        URL imgURL1 = getClass().getResource("/Images/cake.png");
-
-        if (imgURL1 != null) {
-            ImageIcon tempIcon = new ImageIcon(imgURL1);
-
-
-            Image scaledImage = tempIcon.getImage().getScaledInstance(180, 180, Image.SCALE_SMOOTH);
-
-
-            ImageIcon buttonIcon = new ImageIcon(scaledImage);
-
-            bu1.setIcon(buttonIcon);
+        return button;
+    }
+    private JButton createSashimiButton(int x, int y){
+        JButton bu2 = new JButton();
+        bu2.setBounds(x,y,100,100);
+        bu2.setBorderPainted(false);
+        bu2.setContentAreaFilled(false);
+        bu2.setFocusPainted(false);
+        bu2.setOpaque(false);
+        URL imgURL = getClass().getResource("/images/sashimi.png");
+        if (imgURL != null) {
+            ImageIcon temp = new ImageIcon(imgURL);
+            Image scaled = temp.getImage().getScaledInstance(180, 180, Image.SCALE_SMOOTH);
+            bu2.setIcon(new ImageIcon(scaled));
         }
-        bu1.setBorderPainted(false);
-        bu1.setContentAreaFilled(false);
-        bu1.setFocusPainted(false);
-        bu1.setOpaque(false);
-        bu1.addActionListener(e ->{
-            S2 s2 = new S2();
-            jframe.dispose();
-        });
-        jframe.add(bu);
-        jframe.add(bu1);
+        return bu2;
+    }
+
+    private void startGameThread() {
+        gameThread = new Thread(this);
+        gameThread.start();
+    }
+
+    @Override
+    public void run() {
+        final int FPS = 60;
+        final long drawInterval = 1000000000 / FPS;
+
+        while (running) {
+            long start = System.nanoTime();
+            repaint();
+
+            long sleep = drawInterval - (System.nanoTime() - start);
+            if (sleep > 0) {
+                try {
+                    Thread.sleep(sleep / 1000000);
+                } catch (InterruptedException ignored) {
+                }
+            }
+        }
+    }
+
+    @Override
+    protected void paintComponent(Graphics g) {
+        super.paintComponent(g);
+        g.setColor(new Color(245, 210, 225));
+        g.fillRect(0, 0, getWidth(), getHeight());
 
     }
 }

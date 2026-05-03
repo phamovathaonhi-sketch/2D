@@ -33,7 +33,7 @@ public class S1 extends JPanel implements Runnable {
         jframe.setLocationRelativeTo(null);
         jframe.setResizable(false);
         try {
-            String path = "/Images/a34c95dc15ad78b97bb6c5fd681f8579.jpg";
+            String path = "/images/a34c95dc15ad78b97bb6c5fd681f8579.jpg";
             InputStream is = getClass().getResourceAsStream(path);
 
             if (is != null) {
